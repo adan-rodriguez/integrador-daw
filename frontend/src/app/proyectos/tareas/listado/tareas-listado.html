@@ -1,0 +1,42 @@
+<app-template>
+  <section>
+    <p>
+      <span>Proyecto: </span>
+      {{ proyecto()?.nombre ?? '...' }}
+    </p>
+    @if (proyecto()?.cliente) {
+      <p><span>Cliente: </span> {{ proyecto()?.cliente }}</p>
+    }
+    <p><span>Estado: </span> {{ proyecto()?.estado ?? '...' }}</p>
+  </section>
+  <button (click)="crearTarea()">Crear Tarea</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (tarea of proyecto()?.tareas; track tarea.id) {
+        <tr>
+          <td>{{ tarea.descripcion }}</td>
+          <td>{{ tarea.estado }}</td>
+          <td>
+            <button (click)="editarTarea(tarea)">✏</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="3">No se encontraron tareas.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <app-gestion-tarea
+    [(visible)]="dialogVisible"
+    [idProyecto]="idProyecto()"
+    [(tareaSeleccionada)]="tareaSeleccionada"
+  ></app-gestion-tarea>
+</app-template>

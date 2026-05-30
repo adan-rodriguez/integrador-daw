@@ -1,0 +1,18 @@
+<dialog [(open)]="visible">
+  <form [formGroup]="form" (ngSubmit)="guardarCliente()">
+    <h1>
+      {{ clienteSeleccionado() ? 'Editar cliente' : 'Registrar cliente' }}
+    </h1>
+    <input type="text" placeholder="Nombre" formControlName="nombre" />
+
+    @if (clienteSeleccionado()) {
+      <select formControlName="estado">
+        @for (estado of estados; track estado) {
+          <option [value]="estado">{{ estado }}</option>
+        }
+      </select>
+    }
+    <button type="submit" [disabled]="!form.valid">Guardar</button>
+    <button type="button" (click)="cerrarDialog()">Cancelar</button>
+  </form>
+</dialog>

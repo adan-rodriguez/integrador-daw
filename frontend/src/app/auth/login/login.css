@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}

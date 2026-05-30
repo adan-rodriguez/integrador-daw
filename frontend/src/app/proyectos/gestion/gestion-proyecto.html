@@ -1,0 +1,25 @@
+<dialog [(open)]="visible">
+  <form [formGroup]="form" (ngSubmit)="guardarProyecto()">
+    <h1>{{ proyectoSeleccionado() ? 'Editar proyecto' : 'Crear proyecto' }}</h1>
+    <input type="text" placeholder="Nombre del proyecto" formControlName="nombre" />
+
+    <select formControlName="cliente">
+      @for (cliente of clientes(); track cliente.id) {
+        <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
+      }
+    </select>
+    <button type="button" (click)="gestionarClientes()">Gestionar Clientes</button>
+
+    @if (proyectoSeleccionado()) {
+      <select formControlName="estado">
+        @for (estado of estados; track estado) {
+          <option [value]="estado">{{ estado }}</option>
+        }
+      </select>
+    }
+
+    <button type="submit" [disabled]="!form.valid">Guardar proyecto</button>
+    <button type="button" (click)="cerrarDialog()">Cancelar</button>
+  </form>
+</dialog>
+<app-clientes-listado [(visible)]="dialogClientesVisible"></app-clientes-listado>

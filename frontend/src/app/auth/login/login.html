@@ -1,0 +1,6 @@
+<h1 id="header">Sistema de gestión de proyectos</h1>
+<form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()">
+  <input type="text" placeholder="Nombre de usuario" formControlName="nombre" />
+  <input type="password" placeholder="Clave de acceso" formControlName="clave" />
+  <button type="submit" [disabled]="!loginForm.valid">Ingresar</button>
+</form>

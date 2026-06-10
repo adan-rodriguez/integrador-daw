@@ -11,7 +11,7 @@ export class TareasService {
   constructor(
     @InjectRepository(Tarea)
     private readonly tareasRepository: Repository<Tarea>,
-  ) {}
+  ) { }
 
   async crearTarea(
     dto: CreateTareaDto,

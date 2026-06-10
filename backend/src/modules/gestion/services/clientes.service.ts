@@ -21,7 +21,7 @@ export class ClientesService {
     @InjectRepository(Cliente) private readonly repository: Repository<Cliente>,
     @Inject(forwardRef(() => ProyectosService))
     private readonly proyectosService: ProyectosService,
-  ) {}
+  ) { }
 
   async crearCliente(dto: CreateClienteDto): Promise<{ id: number }> {
     const cliente: Cliente = this.repository.create(dto);

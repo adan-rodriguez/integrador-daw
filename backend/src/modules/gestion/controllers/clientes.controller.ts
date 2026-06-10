@@ -38,6 +38,7 @@ export class ClientesController {
       },
     },
   })
+
   @Post()
   async crearCliente(@Body() dto: CreateClienteDto): Promise<{ id: number }> {
     return await this.clientesService.crearCliente(dto);

@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(
     helmet({
       hidePoweredBy: true,
-    }),
+    }), 
   );
 
   const globalPrefix = 'api';

@@ -57,4 +57,3 @@ lerna-debug.log*
 
 .env
 backend/.env
-*.sql

@@ -3,7 +3,10 @@ import { ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiTags } from "@nestj
 import { AuthGuard } from "src/modules/auth/guards/auth.guard";
 import { CsvService } from "../services/csv.service";
 import { type Response } from 'express';
+import { RolesGuard } from "src/modules/auth/guards/roles.guard";
+
 @ApiTags('csv')
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('csv')
 export class CsvController {
     constructor(private readonly csvService: CsvService) { }

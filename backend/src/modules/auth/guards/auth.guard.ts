@@ -6,10 +6,12 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
+import { RolUsuarioEnum } from '../enums/roles-usuarios.enum';
 
 export interface JwtPayload {
   nombre: string;
   sub: number;
+  rol : RolUsuarioEnum // <---integrando rol
   iat: number;
   exp: number;
 }

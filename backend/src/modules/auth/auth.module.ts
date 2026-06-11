@@ -7,6 +7,7 @@ import { AuthService } from './services/auth.service';
 import { UsuariosService } from './services/usuarios.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Usuario } from './entitites/usuario.entity';
+import { RolesGuard } from './guards/roles.guard';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { Usuario } from './entitites/usuario.entity';
     TypeOrmModule.forFeature([Usuario]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UsuariosService, AuthGuard],
-  exports: [AuthGuard],
+  providers: [AuthService, UsuariosService, AuthGuard, RolesGuard],
+  exports: [AuthGuard, RolesGuard],
 })
 export class AuthModule {}

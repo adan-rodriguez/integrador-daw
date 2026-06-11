@@ -20,12 +20,17 @@ import { UpdateClienteDto } from '../dtos/input/update-cliente.dto';
 import { EstadosClientesEnum } from '../enums/estados-clientes.enum';
 import { ClientesService } from '../services/clientes.service';
 import { AuthGuard } from '../../auth/guards/auth.guard';
+import { RolesGuard } from 'src/modules/auth/guards/roles.guard';
+import { Roles } from 'src/modules/auth/decoradors/roles.decorador';
+import { RolUsuarioEnum } from 'src/modules/auth/enums/roles-usuarios.enum';
+
 
 @ApiBearerAuth()
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('clientes')
 export class ClientesController {
   constructor(private readonly clientesService: ClientesService) {}
+
 
   @ApiCreatedResponse({
     schema: {
@@ -38,7 +43,7 @@ export class ClientesController {
       },
     },
   })
-
+  @Roles(RolUsuarioEnum.ADMIN,RolUsuarioEnum.SUPERVISOR)
   @Post()
   async crearCliente(@Body() dto: CreateClienteDto): Promise<{ id: number }> {
     return await this.clientesService.crearCliente(dto);

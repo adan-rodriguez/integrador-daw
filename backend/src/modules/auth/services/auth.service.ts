@@ -24,7 +24,11 @@ export class AuthService {
       throw new UnauthorizedException('Usuario o clave incorrectos.');
     }
 
-    const payload = { nombre: usuario.nombre, sub: usuario.id };
+    const payload = { 
+      nombre: usuario.nombre, 
+      sub: usuario.id,
+      rol: usuario.rol, 
+    };
 
     return {
       accessToken: this.jwtService.sign(payload),

@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { EstadosUsuariosEnum } from '../enums/estados-usuarios.enum';
+import { RolUsuarioEnum } from '../enums/roles-usuarios.enum';
 
 @Entity({ name: 'usuarios' })
 export class Usuario {
@@ -14,4 +15,8 @@ export class Usuario {
 
   @Column({ type: 'enum', enum: EstadosUsuariosEnum })
   estado!: EstadosUsuariosEnum;
+
+  // 👇 Esta es la nueva columna que agregamos
+  @Column({ type: 'enum', enum: RolUsuarioEnum, default: RolUsuarioEnum.USUARIO })
+  rol!: RolUsuarioEnum;
 }

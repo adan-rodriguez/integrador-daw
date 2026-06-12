@@ -31,7 +31,6 @@ import { RolUsuarioEnum } from 'src/modules/auth/enums/roles-usuarios.enum';
 export class ClientesController {
   constructor(private readonly clientesService: ClientesService) {}
 
-
   @ApiCreatedResponse({
     schema: {
       type: 'object',
@@ -49,6 +48,7 @@ export class ClientesController {
     return await this.clientesService.crearCliente(dto);
   }
 
+  @Roles(RolUsuarioEnum.ADMIN,RolUsuarioEnum.SUPERVISOR)
   @Put(':id')
   async actualizarCliente(
     @Param('id') id: number,
@@ -64,6 +64,7 @@ export class ClientesController {
     enum: EstadosClientesEnum,
   })
   @Get()
+  // Culquier ROL puede consultar clientes, pero solo se muestran los activos por defecto
   async obtenerClientes(
     @Query('estado') estado: EstadosClientesEnum,
   ): Promise<ListClienteDTO[]> {

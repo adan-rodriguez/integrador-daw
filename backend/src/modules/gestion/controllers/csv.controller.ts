@@ -4,6 +4,8 @@ import { AuthGuard } from "src/modules/auth/guards/auth.guard";
 import { CsvService } from "../services/csv.service";
 import { type Response } from 'express';
 import { RolesGuard } from "src/modules/auth/guards/roles.guard";
+import { Roles } from "src/modules/auth/decoradors/roles.decorador";
+import { RolUsuarioEnum } from "src/modules/auth/enums/roles-usuarios.enum";
 
 @ApiTags('csv')
 @UseGuards(AuthGuard, RolesGuard)
@@ -14,6 +16,7 @@ export class CsvController {
     @ApiCreatedResponse({
         description: 'Genera un archivo CSV con el listado completo de proyectos',
     })
+    @Roles(RolUsuarioEnum.ADMIN,RolUsuarioEnum.SUPERVISOR)
     @Get('proyectos')
     async exportarProyectos(@Res() res: Response) {
         const csv = await this.csvService.generarCsvProyecto();
@@ -25,6 +28,7 @@ export class CsvController {
     @ApiCreatedResponse({
         description: 'Genera un archivo CSV con el listado completo de tareas',
     })
+    @Roles(RolUsuarioEnum.ADMIN,RolUsuarioEnum.SUPERVISOR)
     @Get('tareas')
     async exportarTareas(@Res() res: Response) {
         const csv = await this.csvService.generarCsvTarea();
@@ -36,6 +40,7 @@ export class CsvController {
     @ApiCreatedResponse({
         description: 'Genera un archivo CSV con el listado completo de clientes',
     })
+    @Roles(RolUsuarioEnum.ADMIN,RolUsuarioEnum.SUPERVISOR)
     @Get('clientes')
     async exportarClientes(@Res() res: Response) {
         const csv = await this.csvService.generarCsvCliente();

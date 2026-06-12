@@ -14,10 +14,8 @@ export class CsvService {
         @InjectRepository(Tarea) private readonly repositoryTarea: Repository<Tarea>,
     ) { }
 
-
     async generarCsvProyecto(): Promise<string> {
         const proyectos = await this.repositoryProyecto.find();
-
 
         if (proyectos.length === 0) {
             return 'id,nombre,estado,id_cliente\n'; // Retorna solo el encabezado si no hay datos
@@ -42,7 +40,6 @@ export class CsvService {
         if (clientes.length === 0) {
             return 'id,nombre,estado\n'; // Retorna solo el encabezado si no hay datos
         }
-
         const dataAplanada = clientes.map(
             (cliente) => ({
                 id_cliente: cliente.id,

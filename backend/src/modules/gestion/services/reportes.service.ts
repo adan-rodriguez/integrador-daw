@@ -23,7 +23,14 @@ export class ReportesService {
         private readonly repositoryTarea: Repository<Tarea>,
     ) { }
 
-
+    /**
+     * @description
+     * NOTE: Esta función genera un reporte de toda la base de datos.
+     * se abandono por mejores funcionalidades.
+     * se deberia eliminar o modificar su funcionalidad para que sea mas especifica y no tan general como lo es actualmente.
+     * @returns 
+     */
+    
     async generarReporte(): Promise<ReporteDTO> {
         const reporte = new ReporteDTO();
 
@@ -121,7 +128,6 @@ export class ReportesService {
     }
 
     async reporteClietes(): Promise<ReporteClienteDTO[]> {
-
         const clientes: Cliente[] = await this.repositoryCliente.find({
             where: { estado: EstadosClientesEnum.ACTIVO },
             relations: { proyectos: true }
@@ -132,49 +138,46 @@ export class ReportesService {
         }
 
         const clientesDto: ReporteClienteDTO[] = clientes.map((cliente) => {
-
             const proyectosActivos = cliente.proyectos
                 ? cliente.proyectos.filter(proyecto => proyecto.estado === EstadosProyectosEnum.ACTIVO)
                 : [];
 
-            return({
+            return ({
                 id_cliente: cliente.id,
                 nombre_cliente: cliente.nombre,
                 proyectos_activos: proyectosActivos.length
             })
 
         })
-        
         return clientesDto
     }
 
-    async repoteProyectos(): Promise<ReporteProyectoDTO[]>{
+    async repoteProyectos(): Promise<ReporteProyectoDTO[]> {
         const proyectos: Proyecto[] = await this.repositoryProyecto.find({
             where: { estado: EstadosProyectosEnum.ACTIVO },
-            relations: { tareas : true }
+            relations: { tareas: true }
         });
 
-        const proyectosDto: ReporteProyectoDTO[]= proyectos.map((proyecto)=>{
+        const proyectosDto: ReporteProyectoDTO[] = proyectos.map((proyecto) => {
 
             const tareas_pendientes = proyecto.tareas ? proyecto.tareas.filter(tarea => tarea.estado === EstadosTareasEnum.PENDIENTE) : []
-            
+
             return {
                 id_proyecto: proyecto.id,
                 nombre_proyecto: proyecto.nombre,
-                tareas_pendientes: tareas_pendientes.length 
+                tareas_pendientes: tareas_pendientes.length
             }
         })
-        
+
         return proyectosDto
     }
- 
-    async reporteTareas(): Promise<ReporteTareaDTO>{
-        const tareas: Tarea[] = await this.repositoryTarea.find()
 
+    async reporteTareas(): Promise<ReporteTareaDTO> {
+        const tareas: Tarea[] = await this.repositoryTarea.find()
 
         const tareasDto: ReporteTareaDTO = {
             total_tareas: tareas.length,
-            tareas_pendientes: tareas.filter( tarea => tarea.estado === EstadosTareasEnum.PENDIENTE ).length
+            tareas_pendientes: tareas.filter(tarea => tarea.estado === EstadosTareasEnum.PENDIENTE).length
         }
 
         return tareasDto
